@@ -446,6 +446,23 @@
       <LastGenOutput>Model2OnlineStore2.cs</LastGenOutput>
     </Content>
     <Content Include="Unity.Mvc4.README.txt" />
+    <None Include="Views\Account\ConfirmEmail.cshtml" />
+    <None Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <None Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <None Include="Views\Account\ForgotPassword.cshtml" />
+    <None Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <None Include="Views\Account\Login.cshtml" />
+    <None Include="Views\Account\Register.cshtml" />
+    <None Include="Views\Account\ResetPassword.cshtml" />
+    <None Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <None Include="Views\Account\SendCode.cshtml" />
+    <None Include="Views\Account\VerifyCode.cshtml" />
+    <None Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <None Include="Views\Motorcycles\Edit.cshtml" />
+    <None Include="Views\Motorcycles\Create.cshtml" />
+    <None Include="Views\Motorcycles\Delete.cshtml" />
+    <None Include="Views\Motorcycles\Details.cshtml" />
+    <None Include="Views\Motorcycles\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
