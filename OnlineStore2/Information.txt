@@ -1,0 +1,21 @@
+﻿I created this project as an empty or plane asp.net framework V 4.7 with no Authentication.
+
+In order to copy the dependencies from OnlineStore2 project (which is the main project):
+
+Fist:
+I unloaded OnlineStore2 project by right clicking on OnlineStore2 project's name from the Solution Explorer bar, then clicked on Unload Project.
+
+Second:
+I done the same to this project.
+
+Third:
+From OnlineStore2 project I right clicked on the project name in Solution Explorer then clicked on Edit Project File. I copied everything here.
+
+Forth:
+I opened the same file on this project with the same way and pasted all copied dependencies there.
+
+Here is the link that I got the procedure to do this.
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question:
+Why after coping and pasting all references this project is stil some things like: Microsoft.AspNet.Identity.Core, Microsoft.AspNet.Identity.EntityFramework, Microsoft.AspNet.Identity.Owin and may some more (I'm not sure at yet)?

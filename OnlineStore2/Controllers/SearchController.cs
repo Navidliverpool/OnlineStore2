@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
+using OnlineStore2.Models;
+
+namespace OnlineStore2.Controllers
+{
+    public class SearchController : Controller
+    {
+        private NavEcommerceDBfirstEntities_Model2OnlineStore2 db = new NavEcommerceDBfirstEntities_Model2OnlineStore2();
+
+        public SearchController()
+        {
+
+        }
+
+        // GET: Search
+        public async Task<ActionResult> Index(string search)
+        {
+            var searchMotorcycle = db.Motorcycles.Where(m => m.Model.Contains(search) || search == null).ToList();
+            return View(searchMotorcycle);
+        }
+    }
+}
