@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,16 +9,16 @@ namespace OnlineStore2.Data.Repositories
 {
     public class MotorcycleRepository : IMotorcycleRepository
     {
-        NavEcommerceDBfirstEntities_Model2OnlineStore2 _storeDB;
+        private NavEcommerceDBfirstEntities_Model2OnlineStore2 _storeDB;
         public MotorcycleRepository(NavEcommerceDBfirstEntities_Model2OnlineStore2 storeDB)
         {
             _storeDB = storeDB;
         }
 
-        public MotorcycleRepository()
-        {
+        //public MotorcycleRepository()
+        //{
 
-        }
+        //}
 
         public void AddMotorcycle(Motorcycle motorcycle)
         {
@@ -26,6 +27,11 @@ namespace OnlineStore2.Data.Repositories
 
         public IQueryable<Motorcycle> GetMotorcyclesIncludeBrandsCategories()
         {
+            if (_storeDB == null)
+            {
+                throw new Exception("_storeDB is null");
+            }
+
             return _storeDB.Motorcycles.Include(m => m.Brand).Include(m => m.Category);
 
         }

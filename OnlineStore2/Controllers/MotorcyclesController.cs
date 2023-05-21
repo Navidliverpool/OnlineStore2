@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Extensions.Logging;
 using OnlineStore2.Data.Repositories;
 using OnlineStore2.Models;
 using OnlineStore2.ViewModels;
@@ -47,10 +48,18 @@ namespace OnlineStore2.Controllers
         [Authorize()]
         public async Task<ActionResult> Index()
         {
+            IQueryable<Motorcycle> getAllMotorcyclesIncludeBrandsCategories;
+            if (_motorcycleRepository.GetMotorcyclesIncludeBrandsCategories() != null)
+            {
+                getAllMotorcyclesIncludeBrandsCategories = _motorcycleRepository.GetMotorcyclesIncludeBrandsCategories();
+                return View(getAllMotorcyclesIncludeBrandsCategories);
 
-            var getAllMotorcyclesIncludeBrandsCategories = _motorcycleRepository.GetMotorcyclesIncludeBrandsCategories();
-
-            return View(await getAllMotorcyclesIncludeBrandsCategories.ToListAsync());
+            }
+            else
+            {
+                TempData["Message"] = "This is my Error";
+                return View(TempData);
+            }
         }
 
         // GET: Motorcycles/Details/5
