@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using OnlineStore2.Models;
 
-namespace OnlineStore2.Models
+namespace OnlineStore2.ViewModels
 {
     public class DealerVM
     {

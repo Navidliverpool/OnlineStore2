@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using OnlineStore2.Models;
+using OnlineStore2.ViewModels;
 
 namespace OnlineStore2.Controllers
 {

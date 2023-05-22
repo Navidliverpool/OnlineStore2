@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using OnlineStore2.Models;
+using OnlineStore2.ViewModels;
 
 namespace OnlineStore2.Controllers
 {

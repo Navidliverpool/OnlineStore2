@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using OnlineStore2.Models;
 using OnlineStore2.ViewModels;
 
-namespace TestUsers.Controllers
+namespace OnlineStore2.Controllers
 {
     public class ShoppingCartController : Controller
     {

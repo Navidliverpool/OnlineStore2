@@ -413,6 +413,7 @@
     <Compile Include="Models\Motorcycle.cs">
       <DependentUpon>Model2OnlineStore2.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MotorcycleImageContent.cs" />
     <Compile Include="Models\MotorcycleMetaData.cs" />
     <Compile Include="Models\Order.cs">
       <DependentUpon>Model2OnlineStore2.tt</DependentUpon>
@@ -430,6 +431,8 @@
     <Compile Include="ViewModels\DealerVM.cs" />
     <Compile Include="ViewModels\HomeVM.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
+    <Compile Include="Models\MotorcycleImageContent2.cs" />
+    <Compile Include="ViewModels\MotorcycleIndexVM.cs" />
     <Compile Include="ViewModels\MotorcycleVM.cs" />
     <Compile Include="ViewModels\ShoppingCartRemoveViewModel.cs" />
     <Compile Include="ViewModels\ShoppingCartViewModel.cs" />

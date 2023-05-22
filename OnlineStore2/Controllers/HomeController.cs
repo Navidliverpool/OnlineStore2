@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using OnlineStore2.ViewModels;
 using OnlineStore2.Models;
+using OnlineStore2.ViewModels;
 
 namespace OnlineStore2.Controllers
 {

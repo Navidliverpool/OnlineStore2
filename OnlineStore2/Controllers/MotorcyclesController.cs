@@ -48,12 +48,22 @@ namespace OnlineStore2.Controllers
         [Authorize()]
         public async Task<ActionResult> Index()
         {
-            IQueryable<Motorcycle> getAllMotorcyclesIncludeBrandsCategories;
-            if (_motorcycleRepository.GetMotorcyclesIncludeBrandsCategories() != null)
+            IQueryable<Motorcycle> getAllMotorcyclesIncludeBrandsCategories = _motorcycleRepository.GetMotorcyclesIncludeBrandsCategories();
+            if (getAllMotorcyclesIncludeBrandsCategories != null)
             {
-                getAllMotorcyclesIncludeBrandsCategories = _motorcycleRepository.GetMotorcyclesIncludeBrandsCategories();
-                return View(getAllMotorcyclesIncludeBrandsCategories);
-
+                List<MotorcycleIndexVM> list = new List<MotorcycleIndexVM>();
+                foreach (var motorcycle in getAllMotorcyclesIncludeBrandsCategories)
+                {
+                    var motorcycleIndexVM = new MotorcycleIndexVM()
+                    {
+                        Model = motorcycle.Model,
+                        Price = motorcycle.Price,
+                        BrandName = motorcycle.Brand.Name,
+                        Category = motorcycle.Category.MotoCategory
+                    };
+                    list.Add(motorcycleIndexVM);
+                }
+                return View(list);
             }
             else
             {
@@ -61,6 +71,7 @@ namespace OnlineStore2.Controllers
                 return View(TempData);
             }
         }
+
 
         // GET: Motorcycles/Details/5
         public async Task<ActionResult> Details(int? id)
@@ -83,14 +94,13 @@ namespace OnlineStore2.Controllers
         [Authorize()]
         public ActionResult Create()
         {
-            var DealersCreateMethod = new MotorcycleVM();
-            var allDealersList = _dealerRepository.GetDealers();
+
             //DealersCreateMethod.AllDealers = allDealersList.Select(d => new SelectListItem
             //{
             //    Text = d.Name,
             //    Value = d.DealerId.ToString()
             //});
-
+            var allDealersList = _dealerRepository.GetDealers();
             List<SelectListItem> listItems = new List<SelectListItem>();
             foreach (var entity in allDealersList)
             {
@@ -102,6 +112,7 @@ namespace OnlineStore2.Controllers
                 };
                 listItems.Add(item);
             }
+            var DealersCreateMethod = new MotorcycleVM();
             DealersCreateMethod.AllDealers = listItems;
 
             //var allDealersListTest = _dealerRepository.GetDealers();
