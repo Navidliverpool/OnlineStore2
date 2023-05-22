@@ -56,6 +56,7 @@ namespace OnlineStore2.Controllers
                 {
                     var motorcycleIndexVM = new MotorcycleIndexVM()
                     {
+                        Image = motorcycle.Image,
                         Model = motorcycle.Model,
                         Price = motorcycle.Price,
                         BrandName = motorcycle.Brand.Name,
@@ -71,8 +72,6 @@ namespace OnlineStore2.Controllers
                 return View(TempData);
             }
         }
-
-
         // GET: Motorcycles/Details/5
         public async Task<ActionResult> Details(int? id)
         {

@@ -9,7 +9,7 @@ namespace OnlineStore2.Data.Repositories
 {
     public class MotorcycleRepository : IMotorcycleRepository
     {
-        private NavEcommerceDBfirstEntities_Model2OnlineStore2 _storeDB;
+        private readonly NavEcommerceDBfirstEntities_Model2OnlineStore2 _storeDB;
         public MotorcycleRepository(NavEcommerceDBfirstEntities_Model2OnlineStore2 storeDB)
         {
             _storeDB = storeDB;
@@ -19,6 +19,10 @@ namespace OnlineStore2.Data.Repositories
         //{
 
         //}
+        public IQueryable<Motorcycle> GetMotorcycles()
+        {
+            return _storeDB.Motorcycles;
+        }
 
         public void AddMotorcycle(Motorcycle motorcycle)
         {
@@ -50,12 +54,6 @@ namespace OnlineStore2.Data.Repositories
         {
             await _storeDB.SaveChangesAsync();
         }
-
-        public IQueryable<Motorcycle> GetMotorcycles()
-        {
-            return _storeDB.Motorcycles;
-        }
-
 
         ////This method was suppose to be used for refactoring the project in order to implement DI. But I undo it for now.
         //void IDbCommon<MotorcycleVM>.EntryState(MotorcycleVM motorcycleVM)
