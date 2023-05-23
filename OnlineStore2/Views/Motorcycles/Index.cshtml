@@ -3,48 +3,21 @@
 @{
     ViewBag.Title = "Index";
 }
-<style>
-    * {
-        box-sizing: border-box;
-    }
-
-    .column {
-        /*float is the key to make the columns done. Without the flout attribute the output is in horizontal shape but with flout attribute it's in
-            vertical shape.
-        */
-        float: left;
-        width: 50%;
-        padding: 10px;
-        height: 300px;
-    }
-
-
-
-    .columnImage {
-        float: left;
-        width: 80%;
-        padding: 10px;
-    }
-
-        .columnImage img {
-            margin-left: 40px;
-            margin-top: 20px;
+<script>
+    function myFnc(model) {
+        var elements = document.getElementsByClassName('modelRow');
+        for (var i = 0; i < elements.length; i++) {
+            if (elements[i].getAttribute('data-model') === model) {
+                elements[i].style.display = 'table-row';
+            } else {
+                elements[i].style.display = 'none';
+            }
         }
-
-    .row:after {
-        content: "";
-        display: table;
-        clear: both;
     }
-</style>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+</script>
 
-<!-- At first I put these two divs inside or after <table> does not work because In the html tables, <table> tag expect <tr> tag right after itself and <tr> tag expect <td> tag right after itself -->
 <div class="row">
     <div class="column" style="background-color:#aaa;">
-        <!-- Grid images here-->
         @foreach (var item in Model)
         {
             <div class="col-sm-3">
@@ -52,7 +25,9 @@
                     <table>
                         <tr>
                             <td>
-                                <img src="data:image;base64,@System.Convert.ToBase64String(item.Image)" style="width:80%" />
+                                <button onclick="myFnc('@item.Model')">
+                                    <img src="data:image;base64,@System.Convert.ToBase64String(item.Image)" style="width:80%" />
+                                </button>
                             </td>
                         </tr>
                     </table>
@@ -61,39 +36,40 @@
         }
     </div>
     <div class="column" style="background-color:#bbb;">
-        <table class="table">
-            <tr>
-                <th>
-                    <h4>Model</h4>
-                </th>
-                <th>
-                    <h4>Price</h4>
-                </th>
-                <th>
-                    <h4>Brand</h4>
-                </th>
-                <th>
-                    <h4>Category</h4>
-                </th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
+        <div class="dn">
+            <table class="table">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Model)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.BrandName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Category)
-                    </td>
+                    <th>
+                        <h4>Model</h4>
+                    </th>
+                    <th>
+                        <h4>Price</h4>
+                    </th>
+                    <th>
+                        <h4>Brand</h4>
+                    </th>
+                    <th>
+                        <h4>Category</h4>
+                    </th>
                 </tr>
-            }
-        </table>
+                @foreach (var item in Model)
+                {
+                    <tr class="modelRow" data-model="@item.Model">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Model)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BrandName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
     </div>
 </div>
