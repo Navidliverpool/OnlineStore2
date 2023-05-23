@@ -3,6 +3,45 @@
 @{
     ViewBag.Title = "Index";
 }
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .column {
+        /*float is the key to make the columns done. Without the flout attribute the output is in horizontal shape but with flout attribute it's in
+            vertical shape.
+        */
+        float: left;
+        width: 50%;
+        padding: 10px;
+        height: 300px;
+    }
+
+    .columnImage {
+        float: left;
+        width: 80%;
+        padding: 10px;
+    }
+
+        .columnImage img {
+            margin-left: 40px;
+            margin-top: 20px;
+            cursor: pointer; /* Add cursor style to indicate interactivity */
+        }
+
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .modelRow {
+        display: none;
+    }
+</style>
+
 <script>
     function myFnc(model) {
         // In this case using document.getElementById('modelRow') instead of document.getElementsByClassName('modelRow') will not work as intended in this scenario.
@@ -29,9 +68,7 @@
                     <table>
                         <tr>
                             <td>
-                                <button onclick="myFnc('@item.Model')">
-                                    <img src="data:image;base64,@System.Convert.ToBase64String(item.Image)" style="width:80%" />
-                                </button>
+                                <img src="data:image;base64,@System.Convert.ToBase64String(item.Image)" style="width:80%" onclick="myFnc('@item.Model')" />
                             </td>
                         </tr>
                     </table>
@@ -40,40 +77,38 @@
         }
     </div>
     <div class="column" style="background-color:#bbb;">
-        <div class="dn">
-            <table class="table">
-                <tr>
-                    <th>
-                        <h4>Model</h4>
-                    </th>
-                    <th>
-                        <h4>Price</h4>
-                    </th>
-                    <th>
-                        <h4>Brand</h4>
-                    </th>
-                    <th>
-                        <h4>Category</h4>
-                    </th>
+        <table class="table">
+            <tr>
+                <th>
+                    <h4>Model</h4>
+                </th>
+                <th>
+                    <h4>Price</h4>
+                </th>
+                <th>
+                    <h4>Brand</h4>
+                </th>
+                <th>
+                    <h4>Category</h4>
+                </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr class="modelRow" data-model="@item.Model">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Model)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BrandName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category)
+                    </td>
                 </tr>
-                @foreach (var item in Model)
-                {
-                    <tr class="modelRow" data-model="@item.Model">
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Model)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Price)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.BrandName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Category)
-                        </td>
-                    </tr>
-                }
-            </table>
-        </div>
+            }
+        </table>
     </div>
 </div>
