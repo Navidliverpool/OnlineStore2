@@ -5,6 +5,10 @@
 }
 <script>
     function myFnc(model) {
+        // In this case using document.getElementById('modelRow') instead of document.getElementsByClassName('modelRow') will not work as intended in this scenario.
+        // The document.getElementById() method retrieves a single element with the specified ID attribute, not a collection of elements.It is suitable when you want to target a specific element with a unique ID.
+        // In the provided code, modelRow is intended to be a CSS class applied to multiple elements, specifically the rows in the table that correspond to different models.Therefore, you need to use document.
+        // getElementsByClassName('modelRow') to retrieve all elements with the class name 'modelRow' as a collection.
         var elements = document.getElementsByClassName('modelRow');
         for (var i = 0; i < elements.length; i++) {
             if (elements[i].getAttribute('data-model') === model) {
