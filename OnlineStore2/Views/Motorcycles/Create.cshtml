@@ -63,6 +63,10 @@
     </div>
 
     <div class="form-group">
+        @Html.DropDownList("DealerId", ViewBag.DealerId as SelectList, "Select Dealer", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
         <input type="submit" value="Create" class="btn btn-primary" />
     </div>
 }

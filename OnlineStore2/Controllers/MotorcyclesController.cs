@@ -15,6 +15,7 @@ using OnlineStore2.Data.Repositories;
 using OnlineStore2.Models;
 using OnlineStore2.ViewModels;
 using TestUsersCopy.Models;
+using TestUsersCopy.ViewModels;
 
 namespace OnlineStore2.Controllers
 {
@@ -73,6 +74,7 @@ namespace OnlineStore2.Controllers
                 return View(TempData);
             }
         }
+
         // GET: Motorcycles/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -80,7 +82,6 @@ namespace OnlineStore2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             Motorcycle motorcycle = await _motorcycleRepository.GetMotorcycleById(id);
 
             if (motorcycle == null)
@@ -90,114 +91,38 @@ namespace OnlineStore2.Controllers
             return View(motorcycle);
         }
 
-        ////GET: Motorcycles/Create
-        //[Authorize()]
-        // public ActionResult Create()
-        // {
-        //     IEnumerable<Motorcycle> motorycleCreation = _motorcycleRepository.GetMotorcycles();
-        //     if(motorycleCreation != null)
-        //     {
-        //         List<Motorcycle> motorcycles = new List<Motorcycle>();
-        //         SubjectModel model = new SubjectModel();
-        //         foreach(var m in motorycleCreation)
-        //         {
-        //             model.SubjectList.Add(new SelectListItem { Text = m.Brand.Name, Value = m.Brand.BrandId.ToString() });
-        //             motorcycles.Add()
-        //         }
-        //     }
-
-        // }
-
         //GET: Motorcycles/Create
-        //public ActionResult Create()
-        //{
-        //    IEnumerable<Motorcycle> motorycleCreation = _motorcycleRepository.GetMotorcyclesIncludeBrandsCategories();
-        //    if (motorycleCreation != null)
-        //    {
-        //        //List<MotorcycleForCreateMeth> list = new List<MotorcycleForCreateMeth>();
-        //        //var motor = new MotorcycleForCreateMeth();
-        //        //foreach(var m in motorycleCreation)
-        //        //{
-        //        //    motor.BrandName = m.Brand.Name;
-        //        //    list.Add(motor);
-        //        //}
-        //        //ViewBag.Motor = motor;
-        //        //return View("create", motor);
-
-        //    }
-        //    else
-        //    {
-        //        return HttpNotFound();
-        //    }
-
-        //}
-
+        [HttpGet]
         [Authorize()]
         public ActionResult Create()
         {
+            IQueryable<Motorcycle> getAllMotorcyclesIncludeBrandsCategories = _motorcycleRepository.GetMotorcyclesIncludeBrandsCategories();
             ViewBag.BrandId = new SelectList(db.Brands.ToList(), "BrandId", "Name");
             ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "CategoryId", "MotoCategory");
+            IQueryable<Dealer> allDealers = _dealerRepository.GetDealers();
+            var dealerIds = allDealers.Select(d => d.DealerId).ToList();
+            ViewBag.DealerId = new SelectList(db.Dealers.Where(d => dealerIds.Contains(d.DealerId)), "DealerId", "Name");
             return View();
         }
 
         //POST: Motorcycles/Create
         //To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(MotorcycleVM motorcycleViewModel, HttpPostedFileBase image)
-        {
-            if (ModelState.IsValid)
-            {
-                if (image != null)
-                {
-                    byte[] data;
-                    using (Stream inputStream = image.InputStream)
-                    {
-                        MemoryStream memoryStream = inputStream as MemoryStream;
-                        if (memoryStream == null)
-                        {
-                            memoryStream = new MemoryStream();
-                            inputStream.CopyTo(memoryStream);
-                        }
-                        data = memoryStream.ToArray();
-                    }
-
-                    //var motorcycleToUpdate = db.Motorcycles
-                    //                   .Include(m => m.Dealers).First(m => m.MotorcycleId == motorcycleViewModel.Motorcycle.MotorcycleId);
-
-                    var brand = db.Brands.FirstOrDefault(b => b.BrandId == motorcycleViewModel.Motorcycle.BrandId);
-                    motorcycleViewModel.Motorcycle.Brand = brand;
-
-                    var category = db.Categories.FirstOrDefault(c => c.CategoryId == motorcycleViewModel.Motorcycle.CategoryId);
-                    motorcycleViewModel.Motorcycle.Category = category;
-
-                    //var newDealers = db.Dealers.Where(
-                    //   m => motorcycleViewModel.SelectedDealers.Contains(m.DealerId)).ToList();
-                    //var updatedDealers = new HashSet<int>(motorcycleViewModel.SelectedDealers);
-                    //foreach (Dealer dealer in db.Dealers)
-                    //{
-                    //    motorcycleToUpdate.Dealers.Add((dealer));
-                    //}
-
-                    var createModel = new Motorcycle();
-                    createModel.MotorcycleId = motorcycleViewModel.Motorcycle.MotorcycleId;
-                    createModel.Model = motorcycleViewModel.Motorcycle.Model;
-                    createModel.Price = motorcycleViewModel.Motorcycle.Price;
-                    createModel.Brand = motorcycleViewModel.Motorcycle.Brand;
-                    createModel.CategoryId = motorcycleViewModel.Motorcycle.CategoryId;
-                    createModel.Dealers = motorcycleViewModel.Motorcycle.Dealers;
-                    createModel.Image = data;
-
-                    ////This was suppose to be used for refactoring the project in order to implement DI. But I undo it and it's dependencies for now.
-                    //(_motorcycleRepository as IDbCommon<MotorcycleVM>).EntryState(motorcycleToUpdate);
-
-                    db.Entry(createModel).State = System.Data.Entity.EntityState.Modified;
-                }
-            }
-
-            return View("Index");
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Create(MotorcycleCreateVM motorcycleCreateVM)
+        //{
+        //    HttpPostedFileBase imageFile = Request.Files["Image"];
+        //    byte[] imageData = new byte[imageFile.ContentLength];
+        //    var t = imageFile.InputStream.Read(imageData, 0, imageFile.ContentLength); 
+        //    var m = new Motorcycle();
+        //    m.Model = motorcycleCreateVM.motorcycle.Model;
+        //    m.MotorcycleId = motorcycleCreateVM.motorcycle.MotorcycleId;
+        //    m.Price = motorcycleCreateVM.motorcycle.Price;
+        //    m.Brand = motorcycleCreateVM.motorcycle.Brand;
+        //    m.Category = motorcycleCreateVM.motorcycle.Category;
+        //m.Image = m
+        //}
 
         // GET: Motorcycles/Edit/5
         [Authorize()]

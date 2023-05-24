@@ -432,6 +432,7 @@
     <Compile Include="ViewModels\HomeVM.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\MotorcycleImageContent.cs" />
+    <Compile Include="ViewModels\MotorcycleCreateVM.cs" />
     <Compile Include="ViewModels\MotorcycleIndexVM.cs" />
     <Compile Include="ViewModels\MotorcycleVM.cs" />
     <Compile Include="ViewModels\ShoppingCartRemoveViewModel.cs" />
