@@ -21,7 +21,7 @@ namespace OnlineStore2.Data.Repositories
         //}
         public IQueryable<Motorcycle> GetMotorcycles()
         {
-            return _storeDB.Motorcycles;
+            return (IQueryable<Motorcycle>)_storeDB.Motorcycles.ToList();
         }
 
         public void AddMotorcycle(Motorcycle motorcycle)

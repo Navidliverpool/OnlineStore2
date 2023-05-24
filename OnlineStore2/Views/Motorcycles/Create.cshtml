@@ -1,8 +1,68 @@
 ﻿@model OnlineStore2.Models.Motorcycle
 
-
 @{
     ViewBag.Title = "Create";
 }
 
+<style>
+    .form-group {
+        margin-bottom: 20px;
+    }
 
+    label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        width: 300px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+</style>
+
+<h2>Create Motorcycle</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Model)
+        @Html.TextBoxFor(model => model.Model, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Model)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Price)
+        @Html.TextBoxFor(model => model.Price, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Price)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.BrandId)
+        @Html.DropDownList("BrandId", ViewBag.BrandId as SelectList, "Select Brand", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.BrandId)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Image)
+        @Html.TextBoxFor(model => model.Image, new { @type = "file", @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Image)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CategoryId)
+        @Html.DropDownList("CategoryId", ViewBag.CategoryId as SelectList, "Select Category", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.CategoryId)
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+}

@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using OnlineStore2.Data.Repositories;
 using OnlineStore2.Models;
 using OnlineStore2.ViewModels;
+using TestUsersCopy.Models;
 
 namespace OnlineStore2.Controllers
 {
@@ -89,15 +90,58 @@ namespace OnlineStore2.Controllers
             return View(motorcycle);
         }
 
-        // GET: Motorcycles/Create
+        ////GET: Motorcycles/Create
         //[Authorize()]
+        // public ActionResult Create()
+        // {
+        //     IEnumerable<Motorcycle> motorycleCreation = _motorcycleRepository.GetMotorcycles();
+        //     if(motorycleCreation != null)
+        //     {
+        //         List<Motorcycle> motorcycles = new List<Motorcycle>();
+        //         SubjectModel model = new SubjectModel();
+        //         foreach(var m in motorycleCreation)
+        //         {
+        //             model.SubjectList.Add(new SelectListItem { Text = m.Brand.Name, Value = m.Brand.BrandId.ToString() });
+        //             motorcycles.Add()
+        //         }
+        //     }
+
+        // }
+
+        //GET: Motorcycles/Create
         //public ActionResult Create()
         //{
-        //    var motorycleCreation = _motorcycleRepository.GetMotorcycles
+        //    IEnumerable<Motorcycle> motorycleCreation = _motorcycleRepository.GetMotorcyclesIncludeBrandsCategories();
+        //    if (motorycleCreation != null)
+        //    {
+        //        //List<MotorcycleForCreateMeth> list = new List<MotorcycleForCreateMeth>();
+        //        //var motor = new MotorcycleForCreateMeth();
+        //        //foreach(var m in motorycleCreation)
+        //        //{
+        //        //    motor.BrandName = m.Brand.Name;
+        //        //    list.Add(motor);
+        //        //}
+        //        //ViewBag.Motor = motor;
+        //        //return View("create", motor);
+
+        //    }
+        //    else
+        //    {
+        //        return HttpNotFound();
+        //    }
+
         //}
 
-        // POST: Motorcycles/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        [Authorize()]
+        public ActionResult Create()
+        {
+            ViewBag.BrandId = new SelectList(db.Brands.ToList(), "BrandId", "Name");
+            ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "CategoryId", "MotoCategory");
+            return View();
+        }
+
+        //POST: Motorcycles/Create
+        //To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
