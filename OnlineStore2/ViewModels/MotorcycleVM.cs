@@ -25,9 +25,7 @@ namespace OnlineStore2.ViewModels
 
         //public virtual ICollection<Dealer> AllDealersTest { get; set; }
         public IEnumerable<Motorcycle> Motorcycles { get; set; }
-        //public IEnumerable<MotorcycleImageContent> MotorcycleImageContents { get; set; }
-        //public IEnumerable<MotorcycleImageContent2> MotorcycleImageContents2 { get; set; }
-        public List<MotorcycleImageContent2> ImagesContents { get; set; }
+        //public List<MotorcycleImageContent> ImagesContents { get; set; }
 
     }
 }

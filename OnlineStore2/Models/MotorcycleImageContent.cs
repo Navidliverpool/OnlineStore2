@@ -1,26 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using OnlineStore2.Models;
+﻿using System.Collections.Generic;
 
-namespace OnlineStore2.ViewModels
+namespace OnlineStore2.Models
 {
     public class MotorcycleImageContent
     {
-        Motorcycle _motorcycle = new Motorcycle();
-        public MotorcycleImageContent(Motorcycle motorcycle)
-        {
-            _motorcycle = motorcycle;
-            Model = _motorcycle.Model;
-            Price = _motorcycle.Price;
-            Name = _motorcycle.Brand.Name;
-            MotoCategory = _motorcycle.Category.MotoCategory;
-        }
+        //public IEnumerable<string> Model { get; set; }
+        //public IEnumerable<double> Price { get; set; }
+        //public IEnumerable<string> BrandName { get; set; }
+        //public IEnumerable<string> Category { get; set; }
+        //public IEnumerable<byte[]> Img { get; set; }
+
         public string Model { get; set; }
         public double Price { get; set; }
-        public string Name{ get; set; }
-        public string MotoCategory { get; set; }
-    
+        public string BrandName { get; set; }
+        public string Category { get; set; }
+
     }
 }

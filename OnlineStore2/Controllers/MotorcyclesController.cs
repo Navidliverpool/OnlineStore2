@@ -90,42 +90,11 @@ namespace OnlineStore2.Controllers
         }
 
         // GET: Motorcycles/Create
-        [Authorize()]
-        public ActionResult Create()
-        {
-
-            //DealersCreateMethod.AllDealers = allDealersList.Select(d => new SelectListItem
-            //{
-            //    Text = d.Name,
-            //    Value = d.DealerId.ToString()
-            //});
-            var allDealersList = _dealerRepository.GetDealers();
-            List<SelectListItem> listItems = new List<SelectListItem>();
-            foreach (var entity in allDealersList)
-            {
-                SelectListItem item = new SelectListItem()
-                {
-                    Selected = false,
-                    Text = entity.Name,
-                    Value = entity.DealerId.ToString()
-                };
-                listItems.Add(item);
-            }
-            var DealersCreateMethod = new MotorcycleVM();
-            DealersCreateMethod.AllDealers = listItems;
-
-            //var allDealersListTest = _dealerRepository.GetDealers();
-            //DealersCreateMethod.AllDealersTest = (ICollection<Dealer>)allDealersListTest.Select(d => new SelectListItem
-            //{
-            //    Text = d.Name,
-            //    Value = d.Name
-            //});
-
-            ViewBag.Dealers = new SelectList(db.Dealers, "Name", "Name");
-            ViewBag.BrandId = new SelectList(db.Brands, "Name", "Name");
-            ViewBag.CategoryId = new SelectList(db.Categories, "MotoCategory", "MotoCategory");
-            return View(DealersCreateMethod);
-        }
+        //[Authorize()]
+        //public ActionResult Create()
+        //{
+        //    var motorycleCreation = _motorcycleRepository.GetMotorcycles
+        //}
 
         // POST: Motorcycles/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 

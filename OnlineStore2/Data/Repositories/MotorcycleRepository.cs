@@ -37,7 +37,6 @@ namespace OnlineStore2.Data.Repositories
             }
 
             return _storeDB.Motorcycles.Include(m => m.Brand).Include(m => m.Category);
-
         }
 
         public async Task<Motorcycle> GetMotorcycleById(int? id)
