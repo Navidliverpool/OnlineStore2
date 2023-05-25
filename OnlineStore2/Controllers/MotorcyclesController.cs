@@ -108,21 +108,24 @@ namespace OnlineStore2.Controllers
         //POST: Motorcycles/Create
         //To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Create(MotorcycleCreateVM motorcycleCreateVM)
-        //{
-        //    HttpPostedFileBase imageFile = Request.Files["Image"];
-        //    byte[] imageData = new byte[imageFile.ContentLength];
-        //    var t = imageFile.InputStream.Read(imageData, 0, imageFile.ContentLength); 
-        //    var m = new Motorcycle();
-        //    m.Model = motorcycleCreateVM.motorcycle.Model;
-        //    m.MotorcycleId = motorcycleCreateVM.motorcycle.MotorcycleId;
-        //    m.Price = motorcycleCreateVM.motorcycle.Price;
-        //    m.Brand = motorcycleCreateVM.motorcycle.Brand;
-        //    m.Category = motorcycleCreateVM.motorcycle.Category;
-        //m.Image = m
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(MotorcycleCreateVM motorcycleCreateVM)
+        {
+            //HttpPostedFileBase imageFile = Request.Files["Image"];
+            //byte[] imageData = new byte[imageFile.ContentLength];
+            //var t = imageFile.InputStream.Read(imageData, 0, imageFile.ContentLength);
+            var m = new Motorcycle();
+            m.Model = motorcycleCreateVM.Model;
+            m.MotorcycleId = motorcycleCreateVM.MotorcycleId;
+            m.Price = motorcycleCreateVM.Price;
+            m.Brand = motorcycleCreateVM.Brand;
+            m.Category = motorcycleCreateVM.Category;
+            m.Image = motorcycleCreateVM.Image;
+            db.Entry(m).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return View("Create");
+        }
 
         // GET: Motorcycles/Edit/5
         [Authorize()]

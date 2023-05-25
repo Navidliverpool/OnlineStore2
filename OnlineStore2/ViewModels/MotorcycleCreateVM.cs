@@ -11,10 +11,10 @@ namespace TestUsersCopy.ViewModels
         public int MotorcycleId { get; set; }
         public string Model { get; set; }
         public double Price { get; set; }
-        //public byte[] Image { get; set; }
-        public HttpPostedFileBase ImageFile { get; set; }
-        public string Brand { get; set; }
-        public string Category { get; set; }
+        public byte[] Image { get; set; }
+        //public HttpPostedFileBase ImageFile { get; set; }
+        public Brand Brand { get; set; }
+        public Category Category { get; set; }
         public ICollection<string> Dealers { get; set; }
 
     }
