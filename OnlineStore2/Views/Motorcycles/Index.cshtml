@@ -59,6 +59,28 @@
     }
 </script>
 
+<!-- Information about the difference between 'Html.ActionLink' and 'Html.Partial'
+    'Html.ActionLink' and 'Html.Partial' are two different HTML helper methods in ASP.NET MVC with distinct purposes:
+Html.ActionLink:
+Purpose: Generates an HTML anchor element (<a>) that represents a link to an action method in a controller.
+Usage: Typically used to create clickable links that navigate to different pages or invoke specific actions in your MVC application.
+Example usage:
+csharp
+Copy code
+Html.ActionLink("Home", "Index", "Home")
+This generates a link with the anchor text "Home" that points to the "Index" action in the "Home" controller.
+Html.Partial:
+Purpose: Renders a partial view as part of the current view.
+Usage: Used to include the content of a CSHTML file (partial view) within another CSHTML file (main view or another partial view).
+Example usage:
+csharp
+Copy code
+Html.Partial("~/Views/Shared/AnotherFile.cshtml")
+This renders the content of the "AnotherFile.cshtml" partial view and includes it in the current view.
+In summary, 'Html.ActionLink' is used to generate links, allowing users to navigate between different actions or pages within the application. 
+    On the other hand, 'Html.Partial' is used to render the content of a CSHTML file within another CSHTML file, effectively including reusable components or partial views within the main view.
+It's important to understand the distinction between these two methods to use them appropriately in your MVC views, depending on whether you need to create links or include partial views.
+    -->
 <div>
     @Html.ActionLink("Create", "Create", "Motorcycles")
     @Html.ActionLink("Edit", "Edit", "Motorcycles")

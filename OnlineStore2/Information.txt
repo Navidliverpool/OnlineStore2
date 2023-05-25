@@ -19,3 +19,5 @@ Here is the link that I got the procedure to do this.
 
 Question:
 Why after coping and pasting all references this project is stil some things like: Microsoft.AspNet.Identity.Core, Microsoft.AspNet.Identity.EntityFramework, Microsoft.AspNet.Identity.Owin and may some more (I'm not sure at yet)?
+------------------------------------------------------------------------------------------------------------------------------------------------
+
