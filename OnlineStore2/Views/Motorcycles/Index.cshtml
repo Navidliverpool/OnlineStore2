@@ -59,6 +59,13 @@
     }
 </script>
 
+<div>
+    @Html.ActionLink("Create", "Create", "Motorcycles")
+    @Html.ActionLink("Edit", "Edit", "Motorcycles")
+    @Html.ActionLink("Delete", "Delete", "Motorcycles")
+    @Html.ActionLink("Details", "Details", "Motorcycles")
+</div>
+
 <div class="row">
     <div class="column" style="background-color:#aaa;">
         @foreach (var item in Model)

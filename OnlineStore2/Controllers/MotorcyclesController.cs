@@ -105,27 +105,104 @@ namespace OnlineStore2.Controllers
             return View();
         }
 
-        //POST: Motorcycles/Create
-        //To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        ////POST: Motorcycles/Create
+        ////To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Create(MotorcycleCreateVM motorcycleCreateVM, HttpPostedFileBase imageFile)
+        //{
+        //    //HttpPostedFileBase imageFile = Request.Files["Image"];
+        //    byte[] imageData = new byte[imageFile.ContentLength];
+        //    var img = imageFile.InputStream.Read(imageData, 0, imageFile.ContentLength);
+        //    var m = new Motorcycle();
+        //    m.Model = motorcycleCreateVM.Model;
+        //    m.MotorcycleId = motorcycleCreateVM.MotorcycleId;
+        //    m.Price = motorcycleCreateVM.Price;
+        //    m.Brand = motorcycleCreateVM.Brand;
+        //    m.Category = motorcycleCreateVM.Category;
+        //    m.Image = imageData; // Assign the byte array directly
+        //    db.Entry(m).State = System.Data.Entity.EntityState.Modified;
+        //    db.SaveChanges();
+        //    return View("Create");
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Create(MotorcycleCreateVM motorcycleCreateVM, HttpPostedFileBase imageFile)
+        //{
+        //    if (imageFile != null && imageFile.ContentLength > 0)
+        //    {
+        //        byte[] imageData = new byte[imageFile.ContentLength];
+        //        imageFile.InputStream.Read(imageData, 0, imageFile.ContentLength);
+
+        //        var base64Image = Convert.ToBase64String(imageData); // Convert to Base64 string
+
+        //        var decodedImageData = Convert.FromBase64String(base64Image); // Decode Base64 string to byte[]
+
+        //        var m = new Motorcycle();
+        //        m.Model = motorcycleCreateVM.Model;
+        //        m.MotorcycleId = motorcycleCreateVM.MotorcycleId;
+        //        m.Price = motorcycleCreateVM.Price;
+        //        m.Brand.Name = motorcycleCreateVM.Brand;
+        //        m.Category.MotoCategory = motorcycleCreateVM.Category;
+        //        m.Image = decodedImageData; // Assign the decoded byte[]
+        //        m.Dealers = motorcycleCreateVM.Dealers.ToList();
+
+        //        db.Entry(m).State = System.Data.Entity.EntityState.Modified;
+        //        db.SaveChanges();
+
+        //        return View("Create");
+        //    }
+
+        //    // Handle invalid file or other error cases
+        //    ModelState.AddModelError("", "Please select a valid image file.");
+        //    return View();
+        //}
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(MotorcycleCreateVM motorcycleCreateVM)
+        public async Task<ActionResult> Create(MotorcycleCreateVM motorcycleCreateVM, HttpPostedFileBase image)
         {
-            //HttpPostedFileBase imageFile = Request.Files["Image"];
-            //byte[] imageData = new byte[imageFile.ContentLength];
-            //var t = imageFile.InputStream.Read(imageData, 0, imageFile.ContentLength);
-            var m = new Motorcycle();
-            m.Model = motorcycleCreateVM.Model;
-            m.MotorcycleId = motorcycleCreateVM.MotorcycleId;
-            m.Price = motorcycleCreateVM.Price;
-            m.Brand = motorcycleCreateVM.Brand;
-            m.Category = motorcycleCreateVM.Category;
-            m.Image = motorcycleCreateVM.Image;
-            db.Entry(m).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
-            return View("Create");
+            if (image != null && image.ContentLength > 0)
+            {
+                //byte[] imageData = new byte[image.ContentLength];
+                //image.InputStream.Read(imageData, 0, image.ContentLength);
+
+                //var base64Image = Convert.ToBase64String(imageData); // Convert to Base64 string
+
+                //var decodedImageData = Convert.FromBase64String(base64Image); // Decode Base64 string to byte[]
+
+                var m = new Motorcycle();
+                m.Model = motorcycleCreateVM.Model;
+                m.MotorcycleId = motorcycleCreateVM.MotorcycleId;
+                m.Price = motorcycleCreateVM.Price;
+                m.Brand.Name = motorcycleCreateVM.Brand;
+                m.Category.MotoCategory = motorcycleCreateVM.Category;
+                byte[] data;
+                using (Stream inputStream = image.InputStream)
+                {
+                    MemoryStream memoryStream = inputStream as MemoryStream;
+                    if (memoryStream == null)
+                    {
+                        memoryStream = new MemoryStream();
+                        inputStream.CopyTo(memoryStream);
+                    }
+                    data = memoryStream.ToArray();
+                }
+                m.Image = data;
+                m.Dealers = motorcycleCreateVM.Dealers.Select(dealerName => new Dealer { Name = dealerName }).ToList();
+                db.Entry(m).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                return View("Create");
+            }
+
+            // Handle invalid file or other error cases
+            ModelState.AddModelError("", "Please select a valid image file.");
+            return View();
         }
+
 
         // GET: Motorcycles/Edit/5
         [Authorize()]

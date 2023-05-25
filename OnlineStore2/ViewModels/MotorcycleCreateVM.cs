@@ -1,8 +1,5 @@
-﻿using OnlineStore2.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+
 
 namespace TestUsersCopy.ViewModels
 {
@@ -13,8 +10,8 @@ namespace TestUsersCopy.ViewModels
         public double Price { get; set; }
         public byte[] Image { get; set; }
         //public HttpPostedFileBase ImageFile { get; set; }
-        public Brand Brand { get; set; }
-        public Category Category { get; set; }
+        public string Brand { get; set; }
+        public string Category { get; set; }
         public ICollection<string> Dealers { get; set; }
 
     }
