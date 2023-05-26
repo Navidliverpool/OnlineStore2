@@ -10,5 +10,6 @@ namespace OnlineStore2.Data.Repositories
     public interface ICategoryRepository
     {
         IQueryable<Category> GetCategories();
+        Category GetCategoryById(int id);
     }
 }

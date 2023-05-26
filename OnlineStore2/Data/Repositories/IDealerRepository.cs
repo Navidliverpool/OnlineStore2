@@ -10,5 +10,6 @@ namespace OnlineStore2.Data.Repositories
     public interface IDealerRepository
     {
         IQueryable<Dealer> GetDealers();
+        Dealer GetDealerById(int id);
     }
 }

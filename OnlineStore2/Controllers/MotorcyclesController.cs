@@ -14,8 +14,6 @@ using Microsoft.Extensions.Logging;
 using OnlineStore2.Data.Repositories;
 using OnlineStore2.Models;
 using OnlineStore2.ViewModels;
-using TestUsersCopy.Models;
-using TestUsersCopy.ViewModels;
 
 namespace OnlineStore2.Controllers
 {
@@ -91,115 +89,73 @@ namespace OnlineStore2.Controllers
             return View(motorcycle);
         }
 
-        //GET: Motorcycles/Create
-        [HttpGet]
-        [Authorize()]
+        // GET: Motorcycles/Create
+        [Authorize]
         public ActionResult Create()
         {
             IQueryable<Motorcycle> getAllMotorcyclesIncludeBrandsCategories = _motorcycleRepository.GetMotorcyclesIncludeBrandsCategories();
-            ViewBag.BrandId = new SelectList(db.Brands.ToList(), "BrandId", "Name");
-            ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "CategoryId", "MotoCategory");
+            ViewBag.BrandId = new SelectList(_brandRepository.GetBrands().ToList(), "BrandId", "Name");
+            ViewBag.CategoryId = new SelectList(_categoryRepository.GetCategories().ToList(), "CategoryId", "MotoCategory");
             IQueryable<Dealer> allDealers = _dealerRepository.GetDealers();
-            var dealerIds = allDealers.Select(d => d.DealerId).ToList();
-            ViewBag.DealerId = new SelectList(db.Dealers.Where(d => dealerIds.Contains(d.DealerId)), "DealerId", "Name");
+            ViewBag.Dealers = allDealers.Select(d => new SelectListItem
+            {
+                Value = d.DealerId.ToString(),
+                Text = d.Name
+            }).ToList();
             return View();
         }
 
-        ////POST: Motorcycles/Create
-        ////To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Create(MotorcycleCreateVM motorcycleCreateVM, HttpPostedFileBase imageFile)
-        //{
-        //    //HttpPostedFileBase imageFile = Request.Files["Image"];
-        //    byte[] imageData = new byte[imageFile.ContentLength];
-        //    var img = imageFile.InputStream.Read(imageData, 0, imageFile.ContentLength);
-        //    var m = new Motorcycle();
-        //    m.Model = motorcycleCreateVM.Model;
-        //    m.MotorcycleId = motorcycleCreateVM.MotorcycleId;
-        //    m.Price = motorcycleCreateVM.Price;
-        //    m.Brand = motorcycleCreateVM.Brand;
-        //    m.Category = motorcycleCreateVM.Category;
-        //    m.Image = imageData; // Assign the byte array directly
-        //    db.Entry(m).State = System.Data.Entity.EntityState.Modified;
-        //    db.SaveChanges();
-        //    return View("Create");
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Create(MotorcycleCreateVM motorcycleCreateVM, HttpPostedFileBase imageFile)
-        //{
-        //    if (imageFile != null && imageFile.ContentLength > 0)
-        //    {
-        //        byte[] imageData = new byte[imageFile.ContentLength];
-        //        imageFile.InputStream.Read(imageData, 0, imageFile.ContentLength);
-
-        //        var base64Image = Convert.ToBase64String(imageData); // Convert to Base64 string
-
-        //        var decodedImageData = Convert.FromBase64String(base64Image); // Decode Base64 string to byte[]
-
-        //        var m = new Motorcycle();
-        //        m.Model = motorcycleCreateVM.Model;
-        //        m.MotorcycleId = motorcycleCreateVM.MotorcycleId;
-        //        m.Price = motorcycleCreateVM.Price;
-        //        m.Brand.Name = motorcycleCreateVM.Brand;
-        //        m.Category.MotoCategory = motorcycleCreateVM.Category;
-        //        m.Image = decodedImageData; // Assign the decoded byte[]
-        //        m.Dealers = motorcycleCreateVM.Dealers.ToList();
-
-        //        db.Entry(m).State = System.Data.Entity.EntityState.Modified;
-        //        db.SaveChanges();
-
-        //        return View("Create");
-        //    }
-
-        //    // Handle invalid file or other error cases
-        //    ModelState.AddModelError("", "Please select a valid image file.");
-        //    return View();
-        //}
-
-        [HttpPost]
+        // POST: Motorcycles/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to,
+        // for more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(MotorcycleCreateVM motorcycleCreateVM, HttpPostedFileBase image)
+        [HttpPost]
+        public ActionResult Create(MotorcycleCreateVM motorcycleCreateVM, HttpPostedFileBase image)
         {
-            if (image != null && image.ContentLength > 0)
+            if (motorcycleCreateVM == null)
             {
-                //byte[] imageData = new byte[image.ContentLength];
-                //image.InputStream.Read(imageData, 0, image.ContentLength);
-
-                //var base64Image = Convert.ToBase64String(imageData); // Convert to Base64 string
-
-                //var decodedImageData = Convert.FromBase64String(base64Image); // Decode Base64 string to byte[]
-
-                var m = new Motorcycle();
-                m.Model = motorcycleCreateVM.Model;
-                m.MotorcycleId = motorcycleCreateVM.MotorcycleId;
-                m.Price = motorcycleCreateVM.Price;
-                m.Brand.Name = motorcycleCreateVM.Brand;
-                m.Category.MotoCategory = motorcycleCreateVM.Category;
-                byte[] data;
-                using (Stream inputStream = image.InputStream)
-                {
-                    MemoryStream memoryStream = inputStream as MemoryStream;
-                    if (memoryStream == null)
-                    {
-                        memoryStream = new MemoryStream();
-                        inputStream.CopyTo(memoryStream);
-                    }
-                    data = memoryStream.ToArray();
-                }
-                m.Image = data;
-                m.Dealers = motorcycleCreateVM.Dealers.Select(dealerName => new Dealer { Name = dealerName }).ToList();
-                db.Entry(m).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-
-                return View("Create");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            // Handle invalid file or other error cases
-            ModelState.AddModelError("", "Please select a valid image file.");
+            if (ModelState.IsValid)
+            {
+                var m = new Motorcycle();
+                foreach (var dealerId in motorcycleCreateVM.SelectedDealerIds)
+                {
+                    var dealer = _dealerRepository.GetDealerById(dealerId);
+                    if (dealer != null)
+                    {
+                        m.Dealers.Add(dealer);
+                    }
+                }
+
+                m.Model = motorcycleCreateVM.Motorcycle.Model;
+                m.Price = motorcycleCreateVM.Motorcycle.Price;
+
+                if (motorcycleCreateVM.Motorcycle.BrandId.HasValue)
+                {
+                    var brand = _brandRepository.GetBrandById(motorcycleCreateVM.Motorcycle.BrandId.Value);
+                    m.Brand = brand;
+                }
+
+                if (motorcycleCreateVM.Motorcycle.CategoryId.HasValue)
+                {
+                    var category = _categoryRepository.GetCategoryById(motorcycleCreateVM.Motorcycle.CategoryId.Value);
+                    m.Category = category;
+                }
+
+                if (image != null && image.ContentLength > 0)
+                {
+                    using (var binaryReader = new BinaryReader(image.InputStream))
+                    {
+                        m.Image = binaryReader.ReadBytes(image.ContentLength);
+                    }
+                }
+
+                _motorcycleRepository.AddMotorcycle(m);
+                _motorcycleRepository.SaveChanges();
+            }
+
             return View();
         }
 
@@ -255,7 +211,6 @@ namespace OnlineStore2.Controllers
 
             if (ModelState.IsValid)
             {
-
                 var motorcycleToUpdate = db.Motorcycles
                     .Include(m => m.Dealers).First(m => m.MotorcycleId == motorcycleViewModel.Motorcycle.MotorcycleId);
 
@@ -295,7 +250,6 @@ namespace OnlineStore2.Controllers
 
                     db.Entry(motorcycleToUpdate).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
-
                 }
             }
 

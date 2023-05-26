@@ -17,5 +17,10 @@ namespace OnlineStore2.Data.Repositories
         {
             return _storeDB.Categories;
         }
+
+        public Category GetCategoryById(int id)
+        {
+            return _storeDB.Categories.FirstOrDefault(c => c.CategoryId == id);
+        }
     }
 }

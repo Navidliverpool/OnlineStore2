@@ -13,11 +13,19 @@ namespace OnlineStore2
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //routes.MapRoute(
+            //    name: "Default",
+            //    url: "{controller}/{action}/{id}",
+            //                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+
+            //    );
+
+            // What I found out is for now to fix all controller's action methods (e.g. Motorcycles/Create, the with HTTPPOST attrubute) it is better to have an explicit map routing, otherwise I get errors.    
             routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+                name: "Create",
+                url: "Motorcycles/Create",
+                defaults: new { controller = "Motorcycles", action = "Create" });
+
         }
     }
 }

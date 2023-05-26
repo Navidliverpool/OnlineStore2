@@ -10,5 +10,6 @@ namespace OnlineStore2.Data.Repositories
     public interface IBrandRepository
     {
         IQueryable<Brand> GetBrands();
+        Brand GetBrandById(int id);
     }
 }

@@ -17,5 +17,9 @@ namespace OnlineStore2.Data.Repositories
         {
             return _storeDB.Dealers;
         }
+        public Dealer GetDealerById(int id)
+        {
+            return _storeDB.Dealers.FirstOrDefault(d => d.DealerId == id);
+        }
     }
 }

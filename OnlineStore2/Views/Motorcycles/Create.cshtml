@@ -1,4 +1,4 @@
-﻿@model OnlineStore2.Models.Motorcycle
+﻿@model OnlineStore2.ViewModels.MotorcycleCreateVM
 
 @{
     ViewBag.Title = "Create";
@@ -28,48 +28,42 @@
 
 <h2>Create Motorcycle</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Motorcycle", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Model)
-        @Html.TextBoxFor(model => model.Model, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Model)
+        @Html.LabelFor(model => model.Motorcycle.Model)
+        @Html.TextBoxFor(model => model.Motorcycle.Model, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Motorcycle.Model)
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Price)
-        @Html.TextBoxFor(model => model.Price, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Price)
+        @Html.LabelFor(model => model.Motorcycle.Price)
+        @Html.TextBoxFor(model => model.Motorcycle.Price, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Motorcycle.Price)
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.BrandId)
-        @Html.DropDownList("BrandId", ViewBag.BrandId as SelectList, "Select Brand", new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.BrandId)
+        @Html.LabelFor(model => model.Motorcycle.BrandId)
+        @Html.DropDownListFor(model => model.Motorcycle.BrandId, ViewBag.BrandId as SelectList, "Select Brand", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Motorcycle.BrandId)
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Image)
-        @Html.TextBoxFor(model => model.Image, new { @type = "file", @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Image)
+        @Html.LabelFor(model => model.Motorcycle.CategoryId)
+        @Html.DropDownListFor(model => model.Motorcycle.CategoryId, ViewBag.CategoryId as SelectList, "Select Category", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Motorcycle.CategoryId)
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.CategoryId)
-        @Html.DropDownList("CategoryId", ViewBag.CategoryId as SelectList, "Select Category", new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.CategoryId)
+        <label>Upload Image</label>
+        <input type="file" name="image" id="image" />
     </div>
-
-    @*<div class="form-group">
-            @Html.DropDownList("DealerId", ViewBag.DealerId as SelectList, "Select Dealer", new { @class = "form-control" })
-        </div>*@
 
     <div class="form-group">
-        @Html.ListBox("DealerId", ViewBag.DealerId as MultiSelectList, new { @class = "form-control" })
+        @Html.ListBoxFor(model => model.SelectedDealerIds, new MultiSelectList(ViewBag.Dealers as IEnumerable<SelectListItem>, "Value", "Text"), new { @class = "form-control" })
     </div>
-
 
     <div class="form-group">
         <input type="submit" value="Create" class="btn btn-primary" />

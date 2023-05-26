@@ -17,5 +17,9 @@ namespace OnlineStore2.Data.Repositories
         {
             return _storeDB.Brands;
         }
+        public Brand GetBrandById(int id)
+        {
+            return _storeDB.Brands.FirstOrDefault(b => b.BrandId == id);
+        }
     }
 }

@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+using OnlineStore2.Models;
 
-
-namespace TestUsersCopy.ViewModels
+namespace OnlineStore2.ViewModels
 {
     public class MotorcycleCreateVM
     {
-        public int MotorcycleId { get; set; }
-        public string Model { get; set; }
-        public double Price { get; set; }
-        public byte[] Image { get; set; }
-        //public HttpPostedFileBase ImageFile { get; set; }
-        public string Brand { get; set; }
-        public string Category { get; set; }
-        public ICollection<string> Dealers { get; set; }
+        public Motorcycle Motorcycle { get; set; }
 
+        [Display(Name = "Select Dealers")]
+        public List<int> SelectedDealerIds { get; set; }
+
+        public IEnumerable<SelectListItem> AllDealers { get; set; }
     }
 }
