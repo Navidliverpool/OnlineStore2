@@ -73,41 +73,25 @@ namespace OnlineStore2.Controllers
             }
         }
 
-        // GET: Motorcycles/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Motorcycle motorcycle = await _motorcycleRepository.GetMotorcycleById(id);
-
-            if (motorcycle == null)
-            {
-                return HttpNotFound();
-            }
-            return View(motorcycle);
-        }
-
         // GET: Motorcycles/Create
         [Authorize]
         public ActionResult Create()
         {
-            IQueryable<Motorcycle> getAllMotorcyclesIncludeBrandsCategories = _motorcycleRepository.GetMotorcyclesIncludeBrandsCategories();
+            var getAllMotorcyclesIncludeBrandsCategories = _motorcycleRepository.GetMotorcyclesIncludeBrandsCategories();
             ViewBag.BrandId = new SelectList(_brandRepository.GetBrands().ToList(), "BrandId", "Name");
             ViewBag.CategoryId = new SelectList(_categoryRepository.GetCategories().ToList(), "CategoryId", "MotoCategory");
-            IQueryable<Dealer> allDealers = _dealerRepository.GetDealers();
+            var allDealers = _dealerRepository.GetDealers();
             ViewBag.Dealers = allDealers.Select(d => new SelectListItem
             {
                 Value = d.DealerId.ToString(),
                 Text = d.Name
             }).ToList();
-            return View();
+
+            var motorcycleCreateVM = new MotorcycleCreateVM();
+            return View(motorcycleCreateVM);
         }
 
         // POST: Motorcycles/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to,
-        // for more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Create(MotorcycleCreateVM motorcycleCreateVM, HttpPostedFileBase image)
@@ -154,9 +138,21 @@ namespace OnlineStore2.Controllers
 
                 _motorcycleRepository.AddMotorcycle(m);
                 _motorcycleRepository.SaveChanges();
+
+                return RedirectToAction("Index");
             }
 
-            return View();
+            var getAllMotorcyclesIncludeBrandsCategories = _motorcycleRepository.GetMotorcyclesIncludeBrandsCategories();
+            ViewBag.BrandId = new SelectList(_brandRepository.GetBrands().ToList(), "BrandId", "Name");
+            ViewBag.CategoryId = new SelectList(_categoryRepository.GetCategories().ToList(), "CategoryId", "MotoCategory");
+            var allDealers = _dealerRepository.GetDealers();
+            ViewBag.Dealers = allDealers.Select(d => new SelectListItem
+            {
+                Value = d.DealerId.ToString(),
+                Text = d.Name
+            }).ToList();
+
+            return View(motorcycleCreateVM);
         }
 
 

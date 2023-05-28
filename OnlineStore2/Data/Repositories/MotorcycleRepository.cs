@@ -24,8 +24,14 @@ namespace OnlineStore2.Data.Repositories
             return (IQueryable<Motorcycle>)_storeDB.Motorcycles.ToList();
         }
 
+        //public void AddMotorcycle(Motorcycle motorcycle)
+        //{
+        //    _storeDB.Motorcycles.Add(motorcycle);
+        //}
+
         public void AddMotorcycle(Motorcycle motorcycle)
         {
+            _storeDB.Entry(motorcycle).State = EntityState.Detached;
             _storeDB.Motorcycles.Add(motorcycle);
         }
 
@@ -49,9 +55,9 @@ namespace OnlineStore2.Data.Repositories
             return _storeDB.Motorcycles.Include(i => i.Dealers).First(i => i.MotorcycleId == id);
         }
 
-        public async void SaveChanges()
+        public void SaveChanges()
         {
-            await _storeDB.SaveChangesAsync();
+             _storeDB.SaveChanges();
         }
 
         ////This method was suppose to be used for refactoring the project in order to implement DI. But I undo it for now.
