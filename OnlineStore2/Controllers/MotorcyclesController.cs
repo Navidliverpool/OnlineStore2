@@ -77,18 +77,28 @@ namespace OnlineStore2.Controllers
         [Authorize]
         public ActionResult Create()
         {
-            var getAllMotorcyclesIncludeBrandsCategories = _motorcycleRepository.GetMotorcyclesIncludeBrandsCategories();
-            ViewBag.BrandId = new SelectList(_brandRepository.GetBrands().ToList(), "BrandId", "Name");
-            ViewBag.CategoryId = new SelectList(_categoryRepository.GetCategories().ToList(), "CategoryId", "MotoCategory");
-            var allDealers = _dealerRepository.GetDealers();
-            ViewBag.Dealers = allDealers.Select(d => new SelectListItem
+            try
             {
-                Value = d.DealerId.ToString(),
-                Text = d.Name
-            }).ToList();
+                var getAllMotorcyclesIncludeBrandsCategories = _motorcycleRepository.GetMotorcyclesIncludeBrandsCategories();
+                ViewBag.BrandId = new SelectList(_brandRepository.GetBrands().ToList(), "BrandId", "Name");
+                ViewBag.CategoryId = new SelectList(_categoryRepository.GetCategories().ToList(), "CategoryId", "MotoCategory");
+                var allDealers = _dealerRepository.GetDealers();
+                ViewBag.Dealers = allDealers.Select(d => new SelectListItem
+                {
+                    Value = d.DealerId.ToString(),
+                    Text = d.Name
+                }).ToList();
 
-            var motorcycleCreateVM = new MotorcycleCreateVM();
-            return View(motorcycleCreateVM);
+                var motorcycleCreateVM = new MotorcycleCreateVM();
+                return View(motorcycleCreateVM);
+            }
+            catch
+            {
+                // Handle the exception or log the error here
+                // For example, you can display an error view or redirect to an error page
+                ViewBag.ErrorMessage = "An error occurred while retrieving data.";
+                return View("Error");
+            }
         }
 
         // POST: Motorcycles/Create
@@ -96,63 +106,74 @@ namespace OnlineStore2.Controllers
         [HttpPost]
         public ActionResult Create(MotorcycleCreateVM motorcycleCreateVM, HttpPostedFileBase image)
         {
-            if (motorcycleCreateVM == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            if (ModelState.IsValid)
-            {
-                var m = new Motorcycle();
-                foreach (var dealerId in motorcycleCreateVM.SelectedDealerIds)
+                if (motorcycleCreateVM == null)
                 {
-                    var dealer = _dealerRepository.GetDealerById(dealerId);
-                    if (dealer != null)
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                if (ModelState.IsValid)
+                {
+                    var m = new Motorcycle();
+                    foreach (var dealerId in motorcycleCreateVM.SelectedDealerIds)
                     {
-                        m.Dealers.Add(dealer);
+                        var dealer = _dealerRepository.GetDealerById(dealerId);
+                        if (dealer != null)
+                        {
+                            m.Dealers.Add(dealer);
+                        }
                     }
-                }
 
-                m.Model = motorcycleCreateVM.Motorcycle.Model;
-                m.Price = motorcycleCreateVM.Motorcycle.Price;
+                    m.Model = motorcycleCreateVM.Motorcycle.Model;
+                    m.Price = motorcycleCreateVM.Motorcycle.Price;
 
-                if (motorcycleCreateVM.Motorcycle.BrandId.HasValue)
-                {
-                    var brand = _brandRepository.GetBrandById(motorcycleCreateVM.Motorcycle.BrandId.Value);
-                    m.Brand = brand;
-                }
-
-                if (motorcycleCreateVM.Motorcycle.CategoryId.HasValue)
-                {
-                    var category = _categoryRepository.GetCategoryById(motorcycleCreateVM.Motorcycle.CategoryId.Value);
-                    m.Category = category;
-                }
-
-                if (image != null && image.ContentLength > 0)
-                {
-                    using (var binaryReader = new BinaryReader(image.InputStream))
+                    if (motorcycleCreateVM.Motorcycle.BrandId.HasValue)
                     {
-                        m.Image = binaryReader.ReadBytes(image.ContentLength);
+                        var brand = _brandRepository.GetBrandById(motorcycleCreateVM.Motorcycle.BrandId.Value);
+                        m.Brand = brand;
                     }
+
+                    if (motorcycleCreateVM.Motorcycle.CategoryId.HasValue)
+                    {
+                        var category = _categoryRepository.GetCategoryById(motorcycleCreateVM.Motorcycle.CategoryId.Value);
+                        m.Category = category;
+                    }
+
+                    if (image != null && image.ContentLength > 0)
+                    {
+                        using (var binaryReader = new BinaryReader(image.InputStream))
+                        {
+                            m.Image = binaryReader.ReadBytes(image.ContentLength);
+                        }
+                    }
+
+                    _motorcycleRepository.AddMotorcycle(m);
+                    _motorcycleRepository.SaveChanges();
+
+                    return RedirectToAction("Create");
                 }
 
-                _motorcycleRepository.AddMotorcycle(m);
-                _motorcycleRepository.SaveChanges();
 
-                return RedirectToAction("Index");
+                var getAllMotorcyclesIncludeBrandsCategories = _motorcycleRepository.GetMotorcyclesIncludeBrandsCategories();
+                ViewBag.BrandId = new SelectList(_brandRepository.GetBrands().ToList(), "BrandId", "Name");
+                ViewBag.CategoryId = new SelectList(_categoryRepository.GetCategories().ToList(), "CategoryId", "MotoCategory");
+                var allDealers = _dealerRepository.GetDealers();
+                ViewBag.Dealers = allDealers.Select(d => new SelectListItem
+                {
+                    Value = d.DealerId.ToString(),
+                    Text = d.Name
+                }).ToList();
+
+                return View(motorcycleCreateVM);
             }
-
-            var getAllMotorcyclesIncludeBrandsCategories = _motorcycleRepository.GetMotorcyclesIncludeBrandsCategories();
-            ViewBag.BrandId = new SelectList(_brandRepository.GetBrands().ToList(), "BrandId", "Name");
-            ViewBag.CategoryId = new SelectList(_categoryRepository.GetCategories().ToList(), "CategoryId", "MotoCategory");
-            var allDealers = _dealerRepository.GetDealers();
-            ViewBag.Dealers = allDealers.Select(d => new SelectListItem
+            catch
             {
-                Value = d.DealerId.ToString(),
-                Text = d.Name
-            }).ToList();
-
-            return View(motorcycleCreateVM);
+                // Handle the exception or log the error here
+                // For example, you can display an error view or redirect to an error page
+                ViewBag.ErrorMessage = "An error occurred while creating the motorcycle.";
+                return View("Error");
+            }
         }
 
 
