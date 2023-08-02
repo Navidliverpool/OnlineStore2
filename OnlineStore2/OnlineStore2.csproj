@@ -373,58 +373,10 @@
       <DependentUpon>202306152312094_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>Model2OnlineStore2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>Model2OnlineStore2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUserClaim.cs">
-      <DependentUpon>Model2OnlineStore2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUserLogin.cs">
-      <DependentUpon>Model2OnlineStore2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Brand.cs">
-      <DependentUpon>Model2OnlineStore2.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\BrandMetaData.cs" />
-    <Compile Include="Models\Cart.cs">
-      <DependentUpon>Model2OnlineStore2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Category.cs">
-      <DependentUpon>Model2OnlineStore2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Dealer.cs">
-      <DependentUpon>Model2OnlineStore2.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\DealerMetaData.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Model2OnlineStore2.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model2OnlineStore2.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model2OnlineStore2.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model2OnlineStore2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model2OnlineStore2.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model2OnlineStore2.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Motorcycle.cs">
-      <DependentUpon>Model2OnlineStore2.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\MotorcycleMetaData.cs" />
-    <Compile Include="Models\Order.cs">
-      <DependentUpon>Model2OnlineStore2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\OrderDetail.cs">
-      <DependentUpon>Model2OnlineStore2.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\OrderDetailMetaData.cs" />
     <Compile Include="Models\OrderMetaData.cs" />
     <Compile Include="Models\ShoppingCart.cs" />
@@ -447,16 +399,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Information.txt" />
-    <Content Include="Models\Model2OnlineStore2.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model2OnlineStore2.edmx</DependentUpon>
-      <LastGenOutput>Model2OnlineStore2.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Model2OnlineStore2.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model2OnlineStore2.edmx</DependentUpon>
-      <LastGenOutput>Model2OnlineStore2.cs</LastGenOutput>
-    </Content>
     <Content Include="Unity.Mvc4.README.txt" />
     <None Include="Views\Account\ConfirmEmail.cshtml" />
     <None Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -490,13 +432,6 @@
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\Model2OnlineStore2.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model2OnlineStore2.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model2OnlineStore2.edmx.diagram">
-      <DependentUpon>Model2OnlineStore2.edmx</DependentUpon>
-    </Content>
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
