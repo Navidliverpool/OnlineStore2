@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace TestUsersCopy.Models
+namespace OnlineStore2.Models
 {
     public class SubjectModel
     {

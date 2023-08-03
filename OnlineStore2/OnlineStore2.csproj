@@ -373,9 +373,21 @@
       <DependentUpon>202306152312094_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Brand.cs" />
+    <Compile Include="Models\BrandCategory.cs" />
+    <Compile Include="Models\BrandDealer.cs" />
     <Compile Include="Models\BrandMetaData.cs" />
+    <Compile Include="Models\Cart.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Dealer.cs" />
+    <Compile Include="Models\ErrorViewModel.cs" />
+    <Compile Include="Models\MotorcycleDealer.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\DealerMetaData.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Motorcycle.cs" />
     <Compile Include="Models\MotorcycleMetaData.cs" />
     <Compile Include="Models\OrderDetailMetaData.cs" />
     <Compile Include="Models\OrderMetaData.cs" />
