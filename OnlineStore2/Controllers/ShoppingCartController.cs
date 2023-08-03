@@ -7,7 +7,7 @@ namespace OnlineStore2.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        NavEcommerceDBfirstEntities_Model2OnlineStore2 storeDB = new NavEcommerceDBfirstEntities_Model2OnlineStore2();
+        ApplicationDbContext storeDB = new ApplicationDbContext();
 
         public ShoppingCartController()
         {

@@ -9,8 +9,8 @@ namespace OnlineStore2.Data.Repositories
     //This interface was suppose to be used for refactoring the project in order to implement DI. But I undo it and it's dependencies for now.
     public class DbCommon<MotorcycleVM> : IDbCommon<MotorcycleVM>
     {
-        private readonly NavEcommerceDBfirstEntities_Model2OnlineStore2 _db;
-        public DbCommon(NavEcommerceDBfirstEntities_Model2OnlineStore2 db)
+        private readonly ApplicationDbContext _db;
+        public DbCommon(ApplicationDbContext db)
         {
             _db = db;
         }

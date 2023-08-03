@@ -8,8 +8,8 @@ namespace OnlineStore2.Data.Repositories
 {
     public class BrandRepository : IBrandRepository
     {
-        NavEcommerceDBfirstEntities_Model2OnlineStore2 _storeDB;
-        public BrandRepository(NavEcommerceDBfirstEntities_Model2OnlineStore2 storeDB)
+        ApplicationDbContext _storeDB;
+        public BrandRepository(ApplicationDbContext storeDB)
         {
             _storeDB = storeDB;
         }

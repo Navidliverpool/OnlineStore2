@@ -14,7 +14,7 @@ namespace OnlineStore2.Controllers
 {
     public class BrandsController : Controller
     {
-        private NavEcommerceDBfirstEntities_Model2OnlineStore2 db = new NavEcommerceDBfirstEntities_Model2OnlineStore2();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public BrandsController()
         {

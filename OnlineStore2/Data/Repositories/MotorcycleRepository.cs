@@ -9,8 +9,8 @@ namespace OnlineStore2.Data.Repositories
 {
     public class MotorcycleRepository : IMotorcycleRepository
     {
-        private readonly NavEcommerceDBfirstEntities_Model2OnlineStore2 _storeDB;
-        public MotorcycleRepository(NavEcommerceDBfirstEntities_Model2OnlineStore2 storeDB)
+        private readonly ApplicationDbContext _storeDB;
+        public MotorcycleRepository(ApplicationDbContext storeDB)
         {
             _storeDB = storeDB;
         }

@@ -7,7 +7,7 @@ using System.Web;
 
 namespace OnlineStore2.Models
 {
-    public class Motorcycle
+    public partial class Motorcycle
     {
         [Key]
         public int MotorcycleId { get; set; }

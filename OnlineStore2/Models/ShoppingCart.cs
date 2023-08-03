@@ -8,7 +8,7 @@ namespace OnlineStore2.Models
 {
     public partial class ShoppingCart
     {
-        NavEcommerceDBfirstEntities_Model2OnlineStore2 storeDB = new NavEcommerceDBfirstEntities_Model2OnlineStore2();
+        ApplicationDbContext storeDB = new ApplicationDbContext();
         string ShoppingCartId { get; set; }
         public const string CartSessionKey = "CartId";
         public static ShoppingCart GetCart(HttpContextBase context)
@@ -26,13 +26,13 @@ namespace OnlineStore2.Models
         {
             var cartItem = storeDB.Carts.SingleOrDefault(
                 c => c.CartId == ShoppingCartId
-                && c.motorcycleId == product.MotorcycleId);
+                && c.MotorcycleId == product.MotorcycleId);
 
             if (cartItem == null)
             {
                 cartItem = new Cart
                 {
-                    motorcycleId = product.MotorcycleId,
+                    MotorcycleId = product.MotorcycleId,
                     CartId = ShoppingCartId,
                     Count = 1,
                     DateCreated = DateTime.Now
@@ -121,7 +121,7 @@ namespace OnlineStore2.Models
             {
                 var orderDetail = new OrderDetail
                 {
-                    MotorcycleId = item.motorcycleId,
+                    MotorcycleId = item.MotorcycleId,
                     OrderId = order.OrderID,
                     UnitPrice = (decimal?)item.Motorcycle.Price,
                     Quantity = item.Count

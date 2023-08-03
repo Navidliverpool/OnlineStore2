@@ -6,7 +6,7 @@ using System.Web;
 
 namespace OnlineStore2.Models
 {
-    public class Brand
+    public partial class Brand
     {
         [Key]
         public int BrandId { get; set; }

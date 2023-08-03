@@ -8,8 +8,8 @@ namespace OnlineStore2.Data.Repositories
 {
     public class DealerRepository : IDealerRepository
     {
-        NavEcommerceDBfirstEntities_Model2OnlineStore2 _storeDB;
-        public DealerRepository(NavEcommerceDBfirstEntities_Model2OnlineStore2 storeDB)
+        ApplicationDbContext _storeDB;
+        public DealerRepository(ApplicationDbContext storeDB)
         {
             _storeDB = storeDB;
         }

@@ -9,7 +9,7 @@ namespace OnlineStore2.Controllers
     [Authorize]
     public class CheckoutController : Controller
     {
-        NavEcommerceDBfirstEntities_Model2OnlineStore2 storeDB = new NavEcommerceDBfirstEntities_Model2OnlineStore2();
+        ApplicationDbContext storeDB = new ApplicationDbContext();
         const string PromoCode = "FREE";
 
         public CheckoutController()

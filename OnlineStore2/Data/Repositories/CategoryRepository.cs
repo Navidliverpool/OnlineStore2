@@ -8,8 +8,8 @@ namespace OnlineStore2.Data.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {
-        NavEcommerceDBfirstEntities_Model2OnlineStore2 _storeDB;
-        public CategoryRepository(NavEcommerceDBfirstEntities_Model2OnlineStore2 storeDB)
+        ApplicationDbContext _storeDB;
+        public CategoryRepository(ApplicationDbContext storeDB)
         {
             _storeDB = storeDB;
         }

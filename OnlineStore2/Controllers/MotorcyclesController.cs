@@ -19,7 +19,7 @@ namespace OnlineStore2.Controllers
 {
     public class MotorcyclesController : Controller
     {
-        private NavEcommerceDBfirstEntities_Model2OnlineStore2 db = new NavEcommerceDBfirstEntities_Model2OnlineStore2();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         ////This interface was suppose to be used for refactoring the project in order to implement DI. But I undo it and it's dependencies for now.
         //IDbCommon<MotorcycleVM> _db;

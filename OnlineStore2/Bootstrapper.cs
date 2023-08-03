@@ -28,7 +28,7 @@ namespace OnlineStore2
             // it is NOT necessary to register your controllers
 
             // e.g. container.RegisterType<ITestService, TestService>();    
-            container.RegisterType<NavEcommerceDBfirstEntities_Model2OnlineStore2>(new HierarchicalLifetimeManager());
+            container.RegisterType<ApplicationDbContext>(new HierarchicalLifetimeManager());
             container.RegisterType<IMotorcycleRepository, MotorcycleRepository>();
             container.RegisterType<IBrandRepository, BrandRepository>();
             container.RegisterType<IDealerRepository, DealerRepository>();
