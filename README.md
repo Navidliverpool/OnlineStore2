@@ -16,23 +16,19 @@ As an admin, you also have the ability to link different motorcycles with differ
 
 There are several ways to search for motorcycles:
 
-By name or model – Search for a specific motorcycle by entering its name or model.
-* The first way is search by the name or model of the motorcycles.
-* The second way is search by the brand of the motorcycles.
-* The third way is search by dealers which have the motorcycles availible in stock.
-* And the forth way is search by category of the motorcycles.
-
+* **By name or model** – Search for a specific motorcycle by entering its name or model.
+* **By brand** – Browse motorcycles based on their brand.
+* **By dealer** – Find motorcycles available in stock from specific dealers.
+* **By category** – Filter motorcycles by category.
 
 :roller_skate: ***Add To Cart:***
 
-Once you have found the motorcycle:
+Once you find the motorcycle you’re looking for, you can add it to your cart.
 
-You could add it to the cart (the user is able to add and remove as many as they want to their cart).
+* Users can **add** or **remove** as many motorcycles as they want from their cart.
+* After adding items to the cart, they can proceed to **checkout**.
 
-And the check out process would be after it.
-
-Here I have provided some screenshots from the different part of the application:
-
+Below, I have provided some screenshots showcasing different parts of the application.
 
 **User Homepage:**
 
