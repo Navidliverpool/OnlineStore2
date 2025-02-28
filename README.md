@@ -1,22 +1,22 @@
 OnlineStore2 is an **ASP.NET MVC database-first** application.
 
 
-This is a motorcycle E-shop.
+This is a motorcycle e-shop.
 
-By registering to the website you could login as an Admin.
+By registering on the website, you can log in as an Admin.
 
-:office_worker: ***Admin-Side:*** 
+:office_worker: ***Admin Side:*** 
 
-Once you logged in as an admin you will access to some features like:
-Add, Edit, delete and more to Motorcycles, Brands, Dealers through the Index pages.
+Once logged in as an admin, you will have access to various features, such as adding, editing, and deleting motorcycles, brands, and dealers through the index pages.
 
-As an admin you also have the ability of connecting different motorcycles with different brands, different dealers, differnt categories and vice versa.
+As an admin, you also have the ability to link different motorcycles with different brands, dealers, and categories, and vice versa.
 
 
-:frowning_person: ***Client-Side:***
+:frowning_person: ***Client Side:***
 
-There are several ways to find the motorcycles that you would like to look for:
+There are several ways to search for motorcycles:
 
+By name or model – Search for a specific motorcycle by entering its name or model.
 * The first way is search by the name or model of the motorcycles.
 * The second way is search by the brand of the motorcycles.
 * The third way is search by dealers which have the motorcycles availible in stock.
